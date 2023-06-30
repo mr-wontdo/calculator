@@ -11,6 +11,11 @@ numberButtons.forEach(button => {
     });
 });
 
+const addButton = document.querySelector('.add');
+addButton.addEventListener('click', () => {
+    z = add;
+});
+
 function equal(x, y, z) {
     return z(x, y);
 }
