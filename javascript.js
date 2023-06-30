@@ -3,7 +3,15 @@ let y = null;
 let z = null;
 let clearDOM = false;
 
-function operate(x, y, z) {
+const display = document.querySelector('.display');
+const numberButtons = document.querySelectorAll('.number');
+numberButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        display.textContent += e.target.firstChild.textContent;
+    });
+});
+
+function equal(x, y, z) {
     return z(x, y);
 }
 
