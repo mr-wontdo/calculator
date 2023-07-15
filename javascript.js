@@ -23,11 +23,11 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        if (x === null && y === null && z === null) {
+        if (x === null && y === null) {
             x = +display.textContent;
             z = functions[e.target.classList[1]];
             clearDOM = true;
-        } else if (x !== null && y === null && z === null) {
+        } else if (x !== null && y === null) {
             y = +display.textContent;
             z = functions[e.target.classList[1]];
             x = operate(x, y, z);
