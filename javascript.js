@@ -20,6 +20,24 @@ numberButtons.forEach(button => {
     });
 });
 
+const operatorButtons = document.querySelectorAll('.operator');
+operatorButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        if (x === null && y === null) {
+            x = +display.textContent;
+            z = functions[e.target.classList[1]];
+            clearDOM = true;
+        } else if (x !== null && y === null) {
+            y = +display.textContent;
+            z = functions[e.target.classList[1]];
+            x = operate(x, y, z);
+            y = null;
+            display.textContent = x;
+            clearDOM = true;
+        }
+    });
+});
+
 const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
     if (x !== null && y === null) {
