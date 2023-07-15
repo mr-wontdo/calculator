@@ -50,6 +50,13 @@ equalButton.addEventListener('click', () => {
     }
 });
 
+let functions = {
+    'add': add,
+    'subtract': subtract,
+    'multiply': multiply,
+    'divide': divide
+};
+
 function add(x, y) {
     return x + y;
 }
