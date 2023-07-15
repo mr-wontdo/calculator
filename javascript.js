@@ -29,7 +29,6 @@ addButton.addEventListener('click', () => {
         z = add;
         x = z(x, y);
         y = null;
-        z = null;
         display.textContent = x;
         clearDOM = true;
     }
@@ -37,17 +36,15 @@ addButton.addEventListener('click', () => {
 
 const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
-    y = +display.textContent;
-    x = z(x, y)
-    display.textContent = x;
-    y = null;
-    z = null;
-    clearDOM = true;
+    if (x !== null && y === null) {
+        y = +display.textContent;
+        display.textContent = z(x, y);
+        x = null;
+        y = null;
+        z = null;
+        clearDOM = true;
+    }
 });
-
-function equal(x, y, z) {
-    return z(x, y);
-}
 
 function add(x, y) {
     return x + y;
