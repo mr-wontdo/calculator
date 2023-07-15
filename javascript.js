@@ -14,31 +14,17 @@ numberButtons.forEach(button => {
         if (display.textContent === '0') {
             display.textContent = '';
         }
-        display.textContent += e.target.firstChild.textContent;
+        if (display.textContent.length < 20) {
+            display.textContent += e.target.firstChild.textContent;
+        }
     });
-});
-
-const addButton = document.querySelector('.add');
-addButton.addEventListener('click', () => {
-    if (x === null && y === null) {
-        x = +display.textContent;
-        z = add;
-        clearDOM = true;
-    } else if (x !== null && y === null) {
-        y = +display.textContent;
-        z = add;
-        x = z(x, y);
-        y = null;
-        display.textContent = x;
-        clearDOM = true;
-    }
 });
 
 const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
     if (x !== null && y === null) {
         y = +display.textContent;
-        display.textContent = z(x, y);
+        display.textContent = operate(x, y, z);
         x = null;
         y = null;
         z = null;
@@ -48,4 +34,20 @@ equalButton.addEventListener('click', () => {
 
 function add(x, y) {
     return x + y;
+}
+
+function subtract(x, y) {
+    return x - y;
+}
+
+function multiply(x, y) {
+    return x * y;
+}
+
+function divide(x, y) {
+    return x / y;
+}
+
+function operate(x, y, z) {
+    return z(x, y);
 }
