@@ -15,7 +15,7 @@ numberButtons.forEach(button => {
         if (display.textContent === '0') {
             display.textContent = '';
         }
-        if (display.textContent.length < 20) {
+        if (display.textContent.length < 11) {
             display.textContent += e.target.firstChild.textContent;
             preventOperator = false;
         }
@@ -28,17 +28,19 @@ operatorButtons.forEach(button => {
         if (x === null && y === null && preventOperator === false) {
             x = +display.textContent;
             z = functions[e.target.classList[1]];
-            clearDOM = true;
-            preventOperator = true;
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             z = functions[e.target.classList[1]];
             x = operate(x, y, z);
             y = null;
             display.textContent = x;
-            clearDOM = true;
-            preventOperator = true;
+        } else {
+            z = functions[e.target.classList[1]];
         }
+        clearDOM = true;
+        preventOperator = true;
+        clearButtonColor();
+        button.style.backgroundColor = 'orange';
     });
 });
 
@@ -51,6 +53,7 @@ equalButton.addEventListener('click', () => {
         y = null;
         z = null;
         clearDOM = true;
+        clearButtonColor();
     }
 });
 
@@ -79,4 +82,10 @@ function divide(x, y) {
 
 function operate(x, y, z) {
     return z(x, y);
+}
+
+function clearButtonColor() {
+    operatorButtons.forEach(button => {
+        button.style.backgroundColor = 'whitesmoke';
+    });
 }
