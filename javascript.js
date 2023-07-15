@@ -2,6 +2,7 @@ let x = null;
 let y = null;
 let z = null;
 let clearDOM = false;
+let preventOperator = false;
 
 const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.number');
@@ -16,6 +17,7 @@ numberButtons.forEach(button => {
         }
         if (display.textContent.length < 20) {
             display.textContent += e.target.firstChild.textContent;
+            preventOperator = false;
         }
     });
 });
@@ -23,17 +25,19 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        if (x === null && y === null) {
+        if (x === null && y === null && preventOperator === false) {
             x = +display.textContent;
             z = functions[e.target.classList[1]];
             clearDOM = true;
-        } else if (x !== null && y === null) {
+            preventOperator = true;
+        } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             z = functions[e.target.classList[1]];
             x = operate(x, y, z);
             y = null;
             display.textContent = x;
             clearDOM = true;
+            preventOperator = true;
         }
     });
 });
