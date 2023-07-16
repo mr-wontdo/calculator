@@ -1,16 +1,16 @@
 let x = null;
 let y = null;
 let z = null;
-let clearDOM = false;
+let clearDisplay = false;
 let preventOperator = false;
 
 const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        if (clearDOM === true) {
+        if (clearDisplay === true) {
             display.textContent = '';
-            clearDOM = false;
+            clearDisplay = false;
         }
         if (display.textContent === '0') {
             display.textContent = '';
@@ -48,7 +48,7 @@ operatorButtons.forEach(button => {
         } else {
             z = operators[e.target.classList[1]];
         }
-        clearDOM = true;
+        clearDisplay = true;
         preventOperator = true;
         clearButtonColor();
         button.style.backgroundColor = '#502C18';
@@ -67,7 +67,7 @@ equalButton.addEventListener('click', () => {
         x = null;
         y = null;
         z = null;
-        clearDOM = true;
+        clearDisplay = true;
         clearButtonColor();
         equalButton.style.backgroundColor = '#502C18';
     }
@@ -78,7 +78,7 @@ allClearButton.addEventListener('click', () => {
     x = null;
     y = null;
     z = null;
-    clearDOM = false;
+    clearDisplay = false;
     preventOperator = false;
     display.textContent = '0';
     clearButtonColor();
@@ -103,15 +103,15 @@ decimalButton.addEventListener('click', () => {
     if (!display.textContent.includes('.')) {
         display.textContent += '.';
     }
-    if (clearDOM === true) {
+    if (clearDisplay === true) {
         display.textContent = '0.';
-        clearDOM = false;
+        clearDisplay = false;
     }
 });
 
 const deleteButton = document.querySelector('.delete');
 deleteButton.addEventListener('click', () => {
-    if (clearDOM === false) {
+    if (clearDisplay === false) {
         let displayArray = display.textContent.split('');
         displayArray.pop();
         let deleteDisplay = displayArray.join('');
@@ -170,9 +170,9 @@ function clearButtonColor() {
 
 document.addEventListener('keydown', (e) => {
     if (e.code.includes('Digit') === true && Number.isInteger(+e.key) === true) {
-        if (clearDOM === true) {
+        if (clearDisplay === true) {
             display.textContent = '';
-            clearDOM = false;
+            clearDisplay = false;
         }
         if (display.textContent === '0') {
             display.textContent = '';
@@ -206,7 +206,7 @@ document.addEventListener('keydown', (e) => {
         } else {
             z = operandButtons[e.key];
         }
-        clearDOM = true;
+        clearDisplay = true;
         preventOperator = true;
         clearButtonColor();
     }
@@ -222,7 +222,7 @@ document.addEventListener('keydown', (e) => {
             x = null;
             y = null;
             z = null;
-            clearDOM = true;
+            clearDisplay = true;
             clearButtonColor();
         }
     }
