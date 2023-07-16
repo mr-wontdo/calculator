@@ -31,7 +31,7 @@ operatorButtons.forEach(button => {
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             x = parseFloat(operate(x, y, z).toPrecision(10));
-            if (Number.isInteger(x) === false) {
+            if (x === Infinity || isNaN(x) === true) {
                 x = 'ERROR';
             }
             display.textContent = x;
@@ -53,7 +53,7 @@ equalButton.addEventListener('click', () => {
     if (x !== null && y === null && preventOperator === false) {
         y = +display.textContent;
         x = parseFloat(operate(x, y, z).toPrecision(10));
-        if (Number.isInteger(x) === false) {
+        if (x === Infinity || isNaN(x) === true) {
             x = 'ERROR';
         }
         display.textContent = x;
@@ -78,14 +78,14 @@ allClearButton.addEventListener('click', () => {
 
 const changeSignButton = document.querySelector('.change-sign');
 changeSignButton.addEventListener('click', () => {
-    if (Number.isInteger(+display.textContent) === true) {
+    if (display.textContent !== 'ERROR') {
         display.textContent = (display.textContent * -1);
     }
 });
 
 const decimalButton = document.querySelector('.decimal');
 decimalButton.addEventListener('click', () => {
-    if (!display.textContent.includes('.') && clearDOM === false) {
+    if (!display.textContent.includes('.')) {
         display.textContent += '.';
     }
     if (clearDOM === true) {
