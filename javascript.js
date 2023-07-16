@@ -31,7 +31,7 @@ operatorButtons.forEach(button => {
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             z = functions[e.target.classList[1]];
-            x = operate(x, y, z);
+            x = parseFloat(operate(x, y, z)).toPrecision(10);
             y = null;
             display.textContent = x;
         } else {
@@ -46,9 +46,9 @@ operatorButtons.forEach(button => {
 
 const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
-    if (x !== null && y === null) {
+    if (x !== null && y === null && preventOperator === false) {
         y = +display.textContent;
-        display.textContent = operate(x, y, z);
+        display.textContent = parseFloat(operate(x, y, z)).toPrecision(10);
         x = null;
         y = null;
         z = null;
@@ -65,6 +65,11 @@ allClearButton.addEventListener('click', () => {
     clearDOM = false;
     display.textContent = '0';
     clearButtonColor();
+});
+
+const changeSignButton = document.querySelector('.change-sign');
+changeSignButton.addEventListener('click', () => {
+    display.textContent = (+display.textContent * -1);
 });
 
 const buttons = document.querySelectorAll('button');
