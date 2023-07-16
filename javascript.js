@@ -34,7 +34,7 @@ operatorButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         if (x === null && y === null && preventOperator === false) {
             x = +display.textContent;
-            z = functions[e.target.classList[1]];
+            z = operators[e.target.classList[1]];
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             x = parseFloat(operate(x, y, z).toPrecision(10));
@@ -44,9 +44,9 @@ operatorButtons.forEach(button => {
             display.textContent = x;
             x = +x;
             y = null;
-            z = functions[e.target.classList[1]];
+            z = operators[e.target.classList[1]];
         } else {
-            z = functions[e.target.classList[1]];
+            z = operators[e.target.classList[1]];
         }
         clearDOM = true;
         preventOperator = true;
@@ -132,7 +132,7 @@ buttons.forEach(button => {
     });
 })
 
-let functions = {
+let operators = {
     'add': add,
     'subtract': subtract,
     'multiply': multiply,
@@ -164,3 +164,35 @@ function clearButtonColor() {
         button.style.backgroundColor = 'whitesmoke';
     });
 }
+
+// Keyboard Support
+
+document.addEventListener('keydown', (e) => {
+    if (e.code.includes('Digit') === true) {
+        if (clearDOM === true) {
+            display.textContent = '';
+            clearDOM = false;
+        }
+        if (display.textContent === '0') {
+            display.textContent = '';
+        }
+        if (display.textContent === '-0') {
+            if (e.key === '0') {
+                display.textContent = '-0';
+            } else {
+                display.textContent = -e.key;
+                preventOperator = false;
+            }
+        } else if (display.textContent.length < 11) {
+            display.textContent += e.key;
+            preventOperator = false;
+        }
+    }
+});
+
+let operandButtons = {
+    '+': operators['add'],
+    '-': operators['subtract'],
+    'x': operators['multiply'],
+    '/': operators['divide'],
+};
