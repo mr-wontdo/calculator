@@ -108,6 +108,20 @@ decimalButton.addEventListener('click', () => {
     }
 });
 
+const deleteButton = document.querySelector('.delete');
+deleteButton.addEventListener('click', () => {
+    if (clearDOM === false) {
+        let displayArray = display.textContent.split('');
+        displayArray.pop();
+        let deleteDisplay = displayArray.join('');
+        if (deleteDisplay === '') {
+            display.textContent = '0';
+        } else {
+            display.textContent = deleteDisplay;
+        }
+    }
+});
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('mouseenter', () => {
