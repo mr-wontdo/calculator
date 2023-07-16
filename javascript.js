@@ -72,6 +72,17 @@ changeSignButton.addEventListener('click', () => {
     display.textContent = (+display.textContent * -1);
 });
 
+const decimalButton = document.querySelector('.decimal');
+decimalButton.addEventListener('click', () => {
+    if (!display.textContent.includes('.') && clearDOM === false) {
+        display.textContent += '.';
+    }
+    if (clearDOM === true) {
+        display.textContent = '0.';
+        clearDOM = false;
+    }
+});
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('mouseenter', () => {
