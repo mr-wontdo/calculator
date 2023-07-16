@@ -31,9 +31,13 @@ operatorButtons.forEach(button => {
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             x = parseFloat(operate(x, y, z).toPrecision(10));
-            z = functions[e.target.classList[1]];
-            y = null;
+            if (Number.isInteger(x) === false) {
+                x = 'ERROR';
+            }
             display.textContent = x;
+            x = +x;
+            y = null;
+            z = functions[e.target.classList[1]];
         } else {
             z = functions[e.target.classList[1]];
         }
@@ -48,7 +52,11 @@ const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
     if (x !== null && y === null && preventOperator === false) {
         y = +display.textContent;
-        display.textContent = parseFloat(operate(x, y, z).toPrecision(10));
+        x = parseFloat(operate(x, y, z).toPrecision(10));
+        if (Number.isInteger(x) === false) {
+            x = 'ERROR';
+        }
+        display.textContent = x;
         x = null;
         y = null;
         z = null;
@@ -63,13 +71,16 @@ allClearButton.addEventListener('click', () => {
     y = null;
     z = null;
     clearDOM = false;
+    preventOperator = false;
     display.textContent = '0';
     clearButtonColor();
 });
 
 const changeSignButton = document.querySelector('.change-sign');
 changeSignButton.addEventListener('click', () => {
-    display.textContent = (+display.textContent * -1);
+    if (Number.isInteger(+display.textContent) === true) {
+        display.textContent = (display.textContent * -1);
+    }
 });
 
 const decimalButton = document.querySelector('.decimal');
