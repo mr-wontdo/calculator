@@ -214,6 +214,24 @@ window.addEventListener('keydown', (e)=> {
     }
 });
 
+window.addEventListener('keydown', (e) => {
+    if (e.key === '=') {
+        if (x !== null && y === null && preventOperator === false) {
+            y = +display.textContent;
+            x = parseFloat(operate(x, y, z).toPrecision(10));
+            if (x === Infinity || isNaN(x) === true) {
+                x = 'ERROR';
+            }
+            display.textContent = x;
+            x = null;
+            y = null;
+            z = null;
+            clearDOM = true;
+            clearButtonColor();
+        }
+    }
+});
+
 let operandButtons = {
     '+': operators['add'],
     '-': operators['subtract'],
