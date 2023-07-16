@@ -190,6 +190,30 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+window.addEventListener('keydown', (e)=> {
+    if (e.key === '+' || e.key === '-' || e.key === 'x' || e.key === '/') {
+        if (x === null && y === null && preventOperator === false) {
+            x = +display.textContent;
+            z = operandButtons[e.key];
+        } else if (x !== null && y === null && preventOperator === false) {
+            y = +display.textContent;
+            x = parseFloat(operate(x, y, z).toPrecision(10));
+            if (x === Infinity || isNaN(x) === true) {
+                x = 'ERROR';
+            }
+            display.textContent = x;
+            x = +x;
+            y = null;
+            z = operandButtons[e.key];
+        } else {
+            z = operandButtons[e.key];
+        }
+        clearDOM = true;
+        preventOperator = true;
+        clearButtonColor();
+    }
+});
+
 let operandButtons = {
     '+': operators['add'],
     '-': operators['subtract'],
