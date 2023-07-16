@@ -188,9 +188,6 @@ document.addEventListener('keydown', (e) => {
             preventOperator = false;
         }
     }
-});
-
-window.addEventListener('keydown', (e) => {
     if (e.key === '+' || e.key === '-' || e.key === 'x' || e.key === '*' || e.key === '/') {
         if (x === null && y === null && preventOperator === false) {
             x = +display.textContent;
@@ -212,10 +209,8 @@ window.addEventListener('keydown', (e) => {
         preventOperator = true;
         clearButtonColor();
     }
-});
-
-window.addEventListener('keydown', (e) => {
     if (e.key === '=' || e.key === 'Enter') {
+        e.preventDefault();
         if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             x = parseFloat(operate(x, y, z).toPrecision(10));
