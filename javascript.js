@@ -15,7 +15,14 @@ numberButtons.forEach(button => {
         if (display.textContent === '0') {
             display.textContent = '';
         }
-        if (display.textContent.length < 11) {
+        if (display.textContent === '-0') {
+            if (e.target.firstChild.textContent === '0') {
+                display.textContent = '-0';
+            } else {
+                display.textContent = -e.target.firstChild.textContent;
+                preventOperator = false;
+            }
+        } else if (display.textContent.length < 11) {
             display.textContent += e.target.firstChild.textContent;
             preventOperator = false;
         }
@@ -78,8 +85,15 @@ allClearButton.addEventListener('click', () => {
 
 const changeSignButton = document.querySelector('.change-sign');
 changeSignButton.addEventListener('click', () => {
-    if (display.textContent !== 'ERROR') {
-        display.textContent = (display.textContent * -1);
+    if (display.textContent !== 'ERROR' && preventOperator === false) {
+        let displayArray = display.textContent.split('');
+        if (displayArray[0] === '-') {
+            displayArray.shift();
+        } else if (displayArray[0] !== '-') {
+            displayArray.unshift('-');
+        }
+        let changeSignDisplay = displayArray.join('');
+        display.textContent = changeSignDisplay;
     }
 });
 
