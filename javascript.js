@@ -168,7 +168,7 @@ function clearButtonColor() {
 // Keyboard Support
 
 document.addEventListener('keydown', (e) => {
-    if (e.code.includes('Digit') === true) {
+    if (e.code.includes('Digit') === true && Number.isInteger(+e.key) === true) {
         if (clearDOM === true) {
             display.textContent = '';
             clearDOM = false;
@@ -190,8 +190,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-window.addEventListener('keydown', (e)=> {
-    if (e.key === '+' || e.key === '-' || e.key === 'x' || e.key === '/') {
+window.addEventListener('keydown', (e) => {
+    if (e.key === '+' || e.key === '-' || e.key === 'x' || e.key === '*' || e.key === '/') {
         if (x === null && y === null && preventOperator === false) {
             x = +display.textContent;
             z = operandButtons[e.key];
@@ -215,7 +215,7 @@ window.addEventListener('keydown', (e)=> {
 });
 
 window.addEventListener('keydown', (e) => {
-    if (e.key === '=') {
+    if (e.key === '=' || e.key === 'Enter') {
         if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             x = parseFloat(operate(x, y, z).toPrecision(10));
@@ -236,5 +236,6 @@ let operandButtons = {
     '+': operators['add'],
     '-': operators['subtract'],
     'x': operators['multiply'],
+    '*': operators['multiply'],
     '/': operators['divide'],
 };
