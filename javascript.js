@@ -51,7 +51,7 @@ operatorButtons.forEach(button => {
         clearDOM = true;
         preventOperator = true;
         clearButtonColor();
-        button.style.backgroundColor = 'orange';
+        button.style.backgroundColor = '#502C18';
     });
 });
 
@@ -69,6 +69,7 @@ equalButton.addEventListener('click', () => {
         z = null;
         clearDOM = true;
         clearButtonColor();
+        equalButton.style.backgroundColor = '#502C18';
     }
 });
 
@@ -125,7 +126,7 @@ deleteButton.addEventListener('click', () => {
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('mouseenter', () => {
-        button.style.borderColor = 'orange';
+        button.style.borderColor = 'whitesmoke';
     });
     button.addEventListener('mouseleave', () => {
         button.style.borderColor = '';
@@ -160,8 +161,8 @@ function operate(x, y, z) {
 }
 
 function clearButtonColor() {
-    operatorButtons.forEach(button => {
-        button.style.backgroundColor = 'whitesmoke';
+    buttons.forEach(button => {
+        button.style.backgroundColor = '#EADAB7';
     });
 }
 

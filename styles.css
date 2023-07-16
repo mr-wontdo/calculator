@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgb(0, 100, 100);
+    background-color: rgba(41, 75, 39, 0.75);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -13,6 +13,8 @@ body {
 
 .header,
 .footer {
+    color: whitesmoke;
+    font-size: large;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +29,7 @@ body {
 }
 
 .calculator {
-    background-color: rgb(0, 150, 150);
+    background-color: rgb(41, 75, 39);
     border: 1px solid black;
     border-radius: 12px;
     box-shadow: 0 0 8px black;
@@ -40,7 +42,7 @@ body {
 }
 
 .display {
-    background-color: rgb(150, 150, 150);
+    background-color: whitesmoke;
     border: 1px solid black;
     border-radius: 8px;
     box-shadow: 0 0 8px black inset;
@@ -63,10 +65,10 @@ body {
 }
 
 button {
-    background-color: whitesmoke;
+    background-color: #EADAB7;
     border-color: black;
     border-radius: 8px;
-    border-width: 2px;
+    border-width: 3px;
     font-size: medium;
     flex: 1 0 0;
 }
