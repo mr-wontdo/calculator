@@ -70,6 +70,7 @@ button {
     border-color: #5C4033;
     border-radius: 8px;
     border-width: 3px;
+    color: black;
     font-size: medium;
     flex: 1 0 0;
 }
