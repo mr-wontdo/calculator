@@ -30,8 +30,8 @@ operatorButtons.forEach(button => {
             z = functions[e.target.classList[1]];
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
+            x = parseFloat(operate(x, y, z).toPrecision(10));
             z = functions[e.target.classList[1]];
-            x = parseFloat(operate(x, y, z)).toPrecision(10);
             y = null;
             display.textContent = x;
         } else {
@@ -48,7 +48,7 @@ const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
     if (x !== null && y === null && preventOperator === false) {
         y = +display.textContent;
-        display.textContent = parseFloat(operate(x, y, z)).toPrecision(10);
+        display.textContent = parseFloat(operate(x, y, z).toPrecision(10));
         x = null;
         y = null;
         z = null;
