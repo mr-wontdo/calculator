@@ -57,6 +57,16 @@ equalButton.addEventListener('click', () => {
     }
 });
 
+const allClearButton = document.querySelector('.all-clear');
+allClearButton.addEventListener('click', () => {
+    x = null;
+    y = null;
+    z = null;
+    clearDOM = false;
+    display.textContent = '0';
+    clearButtonColor();
+});
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('mouseenter', () => {
