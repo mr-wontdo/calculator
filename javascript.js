@@ -56,22 +56,7 @@ operatorButtons.forEach(button => {
 });
 
 const equalButton = document.querySelector('.equal');
-equalButton.addEventListener('click', () => {
-    if (x !== null && y === null && preventOperator === false) {
-        y = +display.textContent;
-        x = operate(x, y, z);
-        if (x === Infinity || isNaN(x) === true) {
-            x = 'ERROR';
-        }
-        display.textContent = x;
-        x = null;
-        y = null;
-        z = null;
-        clearDisplay = true;
-        clearButtonColor();
-        equalButton.style.backgroundColor = '#502C18';
-    }
-});
+equalButton.addEventListener('click', () => equal());
 
 const allClearButton = document.querySelector('.all-clear');
 allClearButton.addEventListener('click', () => {
@@ -99,29 +84,10 @@ changeSignButton.addEventListener('click', () => {
 });
 
 const decimalButton = document.querySelector('.decimal');
-decimalButton.addEventListener('click', () => {
-    if (!display.textContent.includes('.')) {
-        display.textContent += '.';
-    }
-    if (clearDisplay === true) {
-        display.textContent = '0.';
-        clearDisplay = false;
-    }
-});
+decimalButton.addEventListener('click', () => addDecimal());
 
 const deleteButton = document.querySelector('.delete');
-deleteButton.addEventListener('click', () => {
-    if (clearDisplay === false) {
-        let displayArray = display.textContent.split('');
-        displayArray.pop();
-        let deleteDisplay = displayArray.join('');
-        if (deleteDisplay === '') {
-            display.textContent = '0';
-        } else {
-            display.textContent = deleteDisplay;
-        }
-    }
-});
+deleteButton.addEventListener('click', () => deleteLastCharacter());
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
@@ -167,6 +133,46 @@ function operate(x, y, z) {
     }
 }
 
+function equal () {
+    if (x !== null && y === null && preventOperator === false) {
+        y = +display.textContent;
+        x = operate(x, y, z);
+        if (x === Infinity || isNaN(x) === true) {
+            x = 'ERROR';
+        }
+        display.textContent = x;
+        x = null;
+        y = null;
+        z = null;
+        clearDisplay = true;
+        clearButtonColor();
+        equalButton.style.backgroundColor = '#502C18';
+    }
+}
+
+function addDecimal () {
+    if (!display.textContent.includes('.')) {
+        display.textContent += '.';
+    }
+    if (clearDisplay === true) {
+        display.textContent = '0.';
+        clearDisplay = false;
+    }
+}
+
+function deleteLastCharacter () {
+    if (clearDisplay === false) {
+        let displayArray = display.textContent.split('');
+        displayArray.pop();
+        let deleteDisplay = displayArray.join('');
+        if (deleteDisplay === '') {
+            display.textContent = '0';
+        } else {
+            display.textContent = deleteDisplay;
+        }
+    }
+}
+
 function clearButtonColor() {
     buttons.forEach(button => {
         button.style.backgroundColor = '#EADAB7';
@@ -202,7 +208,7 @@ document.addEventListener('keydown', (e) => {
             z = operandButtons[e.key];
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
-            x = parseFloat(operate(x, y, z).toPrecision(10));
+            x = operate(x, y, z);
             if (x === Infinity || isNaN(x) === true) {
                 x = 'ERROR';
             }
@@ -219,19 +225,13 @@ document.addEventListener('keydown', (e) => {
     }
     if (e.key === '=' || e.key === 'Enter') {
         e.preventDefault();
-        if (x !== null && y === null && preventOperator === false) {
-            y = +display.textContent;
-            x = operate(x, y, z);
-            if (x === Infinity || isNaN(x) === true) {
-                x = 'ERROR';
-            }
-            display.textContent = x;
-            x = null;
-            y = null;
-            z = null;
-            clearDisplay = true;
-            clearButtonColor();
-        }
+        equal();
+    }
+    if (e.key === '.') {
+        addDecimal();
+    }
+    if (e.key === 'Backspace') {
+        deleteLastCharacter();
     }
 });
 
