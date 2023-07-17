@@ -86,7 +86,12 @@ let operators = {
     'add': add,
     'subtract': subtract,
     'multiply': multiply,
-    'divide': divide
+    'divide': divide,
+    '+': add,
+    '-': subtract,
+    'x': multiply,
+    '*': multiply,
+    '/': divide,
 };
 
 function add(x, y) {
@@ -137,7 +142,7 @@ function operate(x, y, z) {
     }
 }
 
-function addDecimal () {
+function addDecimal() {
     if (!display.textContent.includes('.')) {
         display.textContent += '.';
     }
@@ -153,7 +158,7 @@ function clearButtonColor() {
     });
 }
 
-function deleteNumbers () {
+function deleteNumbers() {
     if (clearDisplay === false) {
         let displayArray = display.textContent.split('');
         displayArray.pop();
@@ -166,7 +171,7 @@ function deleteNumbers () {
     }
 }
 
-function equal () {
+function equal() {
     if (x !== null && y === null && preventOperator === false) {
         y = +display.textContent;
         x = operate(x, y, z);
@@ -192,7 +197,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === '+' || e.key === '-' || e.key === 'x' || e.key === '*' || e.key === '/') {
         if (x === null && y === null && preventOperator === false) {
             x = +display.textContent;
-            z = operandButtons[e.key];
+            z = operators[e.key];
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
             x = operate(x, y, z);
@@ -202,9 +207,9 @@ document.addEventListener('keydown', (e) => {
             display.textContent = x;
             x = +x;
             y = null;
-            z = operandButtons[e.key];
+            z = operators[e.key];
         } else {
-            z = operandButtons[e.key];
+            z = operators[e.key];
         }
         clearDisplay = true;
         preventOperator = true;
@@ -221,11 +226,3 @@ document.addEventListener('keydown', (e) => {
         equal();
     }
 });
-
-let operandButtons = {
-    '+': operators['add'],
-    '-': operators['subtract'],
-    'x': operators['multiply'],
-    '*': operators['multiply'],
-    '/': operators['divide'],
-};
