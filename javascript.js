@@ -190,6 +190,11 @@ function equal() {
 
 // Keyboard Support
 
+const addButton = document.querySelector('.add');
+const subtractButton = document.querySelector('.subtract');
+const multiplyButton = document.querySelector('.multiply');
+const divideButton = document.querySelector('.divide');
+
 document.addEventListener('keydown', (e) => {
     if (e.code.includes('Digit') === true && Number.isInteger(+e.key) === true) {
         addNumbers(e, e.key);
@@ -214,6 +219,18 @@ document.addEventListener('keydown', (e) => {
         clearDisplay = true;
         preventOperator = true;
         clearButtonColor();
+        if (e.key === '+') {
+            addButton.style.backgroundColor = '#502C18';
+        }
+        if (e.key === '-') {
+            subtractButton.style.backgroundColor = '#502C18';
+        }
+        if (e.key === 'x' || e.key === '*') {
+            multiplyButton.style.backgroundColor = '#502C18';
+        }
+        if (e.key === '/') {
+            divideButton.style.backgroundColor = '#502C18';
+        }
     }
     if (e.key === '.') {
         addDecimal();
