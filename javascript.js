@@ -8,24 +8,7 @@ const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        if (clearDisplay === true) {
-            display.textContent = '';
-            clearDisplay = false;
-        }
-        if (display.textContent === '0') {
-            display.textContent = '';
-        }
-        if (display.textContent === '-0') {
-            if (e.target.firstChild.textContent === '0') {
-                display.textContent = '-0';
-            } else {
-                display.textContent = -e.target.firstChild.textContent;
-                preventOperator = false;
-            }
-        } else if (display.textContent.length < 11) {
-            display.textContent += e.target.firstChild.textContent;
-            preventOperator = false;
-        }
+        addNumbers(e, e.target.firstChild.textContent);
     });
 });
 
@@ -87,7 +70,7 @@ const decimalButton = document.querySelector('.decimal');
 decimalButton.addEventListener('click', () => addDecimal());
 
 const deleteButton = document.querySelector('.delete');
-deleteButton.addEventListener('click', () => deleteLastCharacter());
+deleteButton.addEventListener('click', () => deleteNumbers());
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
@@ -120,6 +103,27 @@ function multiply(x, y) {
 
 function divide(x, y) {
     return x / y;
+}
+
+function addNumbers(e, number) {
+    if (clearDisplay === true) {
+        display.textContent = '';
+        clearDisplay = false;
+    }
+    if (display.textContent === '0') {
+        display.textContent = '';
+    }
+    if (display.textContent === '-0') {
+        if (e.target.firstChild.textContent === '0') {
+            display.textContent = '-0';
+        } else {
+            display.textContent = -number;
+            preventOperator = false;
+        }
+    } else if (display.textContent.length < 11) {
+        display.textContent += number;
+        preventOperator = false;
+    }
 }
 
 function operate(x, y, z) {
@@ -160,7 +164,7 @@ function addDecimal () {
     }
 }
 
-function deleteLastCharacter () {
+function deleteNumbers () {
     if (clearDisplay === false) {
         let displayArray = display.textContent.split('');
         displayArray.pop();
@@ -183,24 +187,7 @@ function clearButtonColor() {
 
 document.addEventListener('keydown', (e) => {
     if (e.code.includes('Digit') === true && Number.isInteger(+e.key) === true) {
-        if (clearDisplay === true) {
-            display.textContent = '';
-            clearDisplay = false;
-        }
-        if (display.textContent === '0') {
-            display.textContent = '';
-        }
-        if (display.textContent === '-0') {
-            if (e.key === '0') {
-                display.textContent = '-0';
-            } else {
-                display.textContent = -e.key;
-                preventOperator = false;
-            }
-        } else if (display.textContent.length < 11) {
-            display.textContent += e.key;
-            preventOperator = false;
-        }
+        addNumbers(e, e.key);
     }
     if (e.key === '+' || e.key === '-' || e.key === 'x' || e.key === '*' || e.key === '/') {
         if (x === null && y === null && preventOperator === false) {
@@ -231,7 +218,7 @@ document.addEventListener('keydown', (e) => {
         addDecimal();
     }
     if (e.key === 'Backspace') {
-        deleteLastCharacter();
+        deleteNumbers();
     }
 });
 
