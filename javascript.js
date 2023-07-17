@@ -37,7 +37,7 @@ operatorButtons.forEach(button => {
             z = operators[e.target.classList[1]];
         } else if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
-            x = parseFloat(operate(x, y, z).toPrecision(10));
+            x = operate(x, y, z);
             if (x === Infinity || isNaN(x) === true) {
                 x = 'ERROR';
             }
@@ -59,7 +59,7 @@ const equalButton = document.querySelector('.equal');
 equalButton.addEventListener('click', () => {
     if (x !== null && y === null && preventOperator === false) {
         y = +display.textContent;
-        x = parseFloat(operate(x, y, z).toPrecision(10));
+        x = operate(x, y, z);
         if (x === Infinity || isNaN(x) === true) {
             x = 'ERROR';
         }
@@ -157,7 +157,14 @@ function divide(x, y) {
 }
 
 function operate(x, y, z) {
-    return z(x, y);
+    result = z(x, y);
+    if (result > 0 && result < 1 && result.toString().length > 10) {
+        return result.toPrecision(7);
+    } else if (result.toString().length > 10) {
+        return result.toExponential(6);
+    } else {
+        return result;
+    }
 }
 
 function clearButtonColor() {
