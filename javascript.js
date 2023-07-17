@@ -38,9 +38,6 @@ operatorButtons.forEach(button => {
     });
 });
 
-const equalButton = document.querySelector('.equal');
-equalButton.addEventListener('click', () => equal());
-
 const allClearButton = document.querySelector('.all-clear');
 allClearButton.addEventListener('click', () => {
     x = null;
@@ -51,6 +48,16 @@ allClearButton.addEventListener('click', () => {
     display.textContent = '0';
     clearButtonColor();
 });
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+        button.style.borderColor = 'whitesmoke';
+    });
+    button.addEventListener('mouseleave', () => {
+        button.style.borderColor = '';
+    });
+})
 
 const changeSignButton = document.querySelector('.change-sign');
 changeSignButton.addEventListener('click', () => {
@@ -72,15 +79,8 @@ decimalButton.addEventListener('click', () => addDecimal());
 const deleteButton = document.querySelector('.delete');
 deleteButton.addEventListener('click', () => deleteNumbers());
 
-const buttons = document.querySelectorAll('button');
-buttons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        button.style.borderColor = 'whitesmoke';
-    });
-    button.addEventListener('mouseleave', () => {
-        button.style.borderColor = '';
-    });
-})
+const equalButton = document.querySelector('.equal');
+equalButton.addEventListener('click', () => equal());
 
 let operators = {
     'add': add,
@@ -137,23 +137,6 @@ function operate(x, y, z) {
     }
 }
 
-function equal () {
-    if (x !== null && y === null && preventOperator === false) {
-        y = +display.textContent;
-        x = operate(x, y, z);
-        if (x === Infinity || isNaN(x) === true) {
-            x = 'ERROR';
-        }
-        display.textContent = x;
-        x = null;
-        y = null;
-        z = null;
-        clearDisplay = true;
-        clearButtonColor();
-        equalButton.style.backgroundColor = '#502C18';
-    }
-}
-
 function addDecimal () {
     if (!display.textContent.includes('.')) {
         display.textContent += '.';
@@ -162,6 +145,12 @@ function addDecimal () {
         display.textContent = '0.';
         clearDisplay = false;
     }
+}
+
+function clearButtonColor() {
+    buttons.forEach(button => {
+        button.style.backgroundColor = '#EADAB7';
+    });
 }
 
 function deleteNumbers () {
@@ -177,10 +166,21 @@ function deleteNumbers () {
     }
 }
 
-function clearButtonColor() {
-    buttons.forEach(button => {
-        button.style.backgroundColor = '#EADAB7';
-    });
+function equal () {
+    if (x !== null && y === null && preventOperator === false) {
+        y = +display.textContent;
+        x = operate(x, y, z);
+        if (x === Infinity || isNaN(x) === true) {
+            x = 'ERROR';
+        }
+        display.textContent = x;
+        x = null;
+        y = null;
+        z = null;
+        clearDisplay = true;
+        clearButtonColor();
+        equalButton.style.backgroundColor = '#502C18';
+    }
 }
 
 // Keyboard Support
@@ -210,15 +210,15 @@ document.addEventListener('keydown', (e) => {
         preventOperator = true;
         clearButtonColor();
     }
-    if (e.key === '=' || e.key === 'Enter') {
-        e.preventDefault();
-        equal();
-    }
     if (e.key === '.') {
         addDecimal();
     }
     if (e.key === 'Backspace') {
         deleteNumbers();
+    }
+    if (e.key === '=' || e.key === 'Enter') {
+        e.preventDefault();
+        equal();
     }
 });
 
