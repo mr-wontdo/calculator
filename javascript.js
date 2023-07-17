@@ -221,7 +221,7 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
         if (x !== null && y === null && preventOperator === false) {
             y = +display.textContent;
-            x = parseFloat(operate(x, y, z).toPrecision(10));
+            x = operate(x, y, z);
             if (x === Infinity || isNaN(x) === true) {
                 x = 'ERROR';
             }
