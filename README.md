@@ -1,2 +1,2 @@
 # calculator
-A project that utilizes HTML, CSS, and JavaScript to create a calculator.
+A calculator created using HTML, CSS, and JavaScript.
